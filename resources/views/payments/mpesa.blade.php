@@ -8,12 +8,18 @@
                 <label for="phone_no">Phone No.</label>
                 <input type="number" class="form-control" name="phone_no" id="" aria-describedby="helpId" placeholder="254708374149">
                 <small id="helpId" class="form-text text-muted">Phone No. to be billed.</small>
+                @error('phone_no')
+                    <p class="text-red-500 text-xs mt-1" >{{ $message }}</p>
+                @enderror
             </div>
 
             <div class="form-group">
               <label for="amount">Amount</label>
               <input type="number" class="form-control" name="amount" id="" aria-describedby="helpId" placeholder="">
               <small id="helpId" class="form-text text-muted">Amount to be billed.</small>
+              @error('amount')
+                <p class="text-red-500 text-xs mt-1" >{{ $message }}</p>
+              @enderror
             </div>
             
             <div class="flex justify-center my-4">

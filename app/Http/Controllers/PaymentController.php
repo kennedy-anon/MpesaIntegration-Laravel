@@ -14,7 +14,9 @@ class PaymentController extends Controller
     }
 
     // performing payments
-    public function stkPush() {
+    public function stkPush(Request $request) {
+        dd($request);
+        
         $mpesa= new \Safaricom\Mpesa\Mpesa();
         $BusinessShortCode = 174379;
         $LipaNaMpesaPasskey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919' ;

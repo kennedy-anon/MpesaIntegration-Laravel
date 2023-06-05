@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Mpesa;
 
 class PaymentController extends Controller
@@ -46,6 +47,13 @@ class PaymentController extends Controller
             $TransactionDesc, 
             $Remarks);
 
-        dd($stkPushSimulation);
+        $data = json_decode($stkPushSimulation, true);
+        
+        if ($data['ResponseCode'] == 0) {
+            return redirect('/payments')->with('message', $data['CustomerMessage']);
+        }else {
+            return redirect('/payments')->with('message', 'Request not complete.');
+        }
+
     }
 }

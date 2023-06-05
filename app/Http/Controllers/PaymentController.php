@@ -59,7 +59,12 @@ class PaymentController extends Controller
 
     // receiving & processing mpesa receipts
     public function mpesaReceipts(Request $request) {
-        Log::info($request);
-        dd($request);
+        // $receipt = json_decode($request, true);  // uncomment this
+        $receipt = $request; // comment this
+        $item = $receipt['Body']['stkCallback']['CallbackMetadata']['Item'];
+        $mpesaData = array_column($item, 'Value', 'Name');
+        Log::info($mpesaData); // save this to database
+
+        return redirect('/payments')->with('message', 'Payment received');
     }
 }

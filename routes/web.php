@@ -23,3 +23,6 @@ Route::get('/payments', [PaymentController::class, 'mpesaCreate']);
 
 // prompt customer for payment
 Route::post('/payments/mpesa', [PaymentController::class, 'stkPush']);
+
+// receiving mpesa calbacks/transaction receipt
+Route::post('/webhooks/mpesa', [PaymentController::class, 'mpesaReceipts']);

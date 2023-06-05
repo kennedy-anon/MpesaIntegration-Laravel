@@ -29,7 +29,7 @@ class PaymentController extends Controller
         $PartyA = $formFields['phone_no'];
         $PartyB = 174379;
         $PhoneNumber = $formFields['phone_no']; 
-        $CallBackURL = 'https://mydomain.com/path';
+        $CallBackURL = 'https://hkdk.events/9ljemIq1p4nX';
         $AccountReference = 'Kennedy\'s Investments';
         $TransactionDesc = 'Testing the System';
         $Remarks = 'Remarks';
@@ -48,12 +48,18 @@ class PaymentController extends Controller
             $Remarks);
 
         $data = json_decode($stkPushSimulation, true);
-        
+
         if ($data['ResponseCode'] == 0) {
             return redirect('/payments')->with('message', $data['CustomerMessage']);
         }else {
             return redirect('/payments')->with('message', 'Request not complete.');
         }
 
+    }
+
+    // receiving & processing mpesa receipts
+    public function mpesaReceipts(Request $request) {
+        Log::info($request);
+        dd($request);
     }
 }

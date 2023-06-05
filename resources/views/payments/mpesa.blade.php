@@ -6,7 +6,7 @@
 
             <div class="form-group">
                 <label for="phone_no">Phone No.</label>
-                <input type="number" class="form-control" name="phone_no" id="" aria-describedby="helpId" placeholder="254708374149">
+                <input type="number" class="form-control" name="phone_no" id="" aria-describedby="helpId" placeholder="Example: 254708374149">
                 <small id="helpId" class="form-text text-muted">Phone No. to be billed.</small>
                 @error('phone_no')
                     <p class="text-red-500 text-xs mt-1" >{{ $message }}</p>

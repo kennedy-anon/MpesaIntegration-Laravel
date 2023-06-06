@@ -17,7 +17,7 @@
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-6 py-4">{{ $payment['sender'] }}</td>
                     <td class="px-6 py-4">{{ $payment['amount'] }}</td>
-                    <td class="px-6 py-4">{{ $payment['date'] }}</td>
+                    <td class="px-6 py-4">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $payment['date'])->format('F j, Y h:i:s A') }}</td>
                     <td class="px-6 py-4">{{ $payment['receipt_number'] }}</td>
                 </tr>
                 @endforeach

@@ -49,6 +49,7 @@ class PaymentController extends Controller
             $Remarks);
 
         $data = json_decode($stkPushSimulation, true);
+        Log::info($data);
 
         if ($data['ResponseCode'] == 0) {
             return redirect('/payments/fetch')->with('message', $data['CustomerMessage']);

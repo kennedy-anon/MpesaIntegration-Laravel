@@ -25,11 +25,29 @@
 </head>
 <body>
     <nav class="flex justify-between items-center mb-4 bg-mpesa h-10">
-        <ul class="flex space-x-6 mr-6 text-lg">
+        <ul class="flex space-x-10 mr-6 text-lg">
             <li class="ml-10">
                 <span class="font-bold uppercase">
                     Payments
                 </span>
+            </li>
+
+            <li>
+              <a href="/payments" class="hover:text-laravel"
+                  ><span class="material-icons material-icons-outlined align-bottom">
+                    add_card
+                    </span>
+                  New Payment
+                </a>
+            </li>
+
+            <li>
+              <a href="/payments/fetch" class="hover:text-laravel"
+                  ><span class="material-icons material-icons-outlined align-middle">
+                    price_check
+                    </span>
+                  Received Payments</a
+              >
             </li>
         </ul>  
     </nav>

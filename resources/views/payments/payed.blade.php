@@ -1,6 +1,7 @@
 <x-layout>
     <div class="mx-4">
-
+        
+        @unless (count($payments) == 0)
         <table class="table-auto">
             <thead>
               <tr>
@@ -12,7 +13,6 @@
             </thead>
 
             <tbody>
-                @unless (count($payments) == 0)
                 @foreach ($payments as $payment)
                 <tr>
                     <td>{{ $payment['sender'] }}</td>

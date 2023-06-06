@@ -62,20 +62,34 @@ class PaymentController extends Controller
     public function mpesaReceipts(Request $request) {
         // $receipt = json_decode($request, true);  // uncomment this
         $receipt = $request; // comment this
-        $item = $receipt['Body']['stkCallback']['CallbackMetadata']['Item'];
-        $mpesaData = array_column($item, 'Value', 'Name');
+        $metadata = array(
+            'MerchantRequestID' => $receipt['Body']['stkCallback']['MerchantRequestID'],
+            'CheckoutRequestID' => $receipt['Body']['stkCallback']['CheckoutRequestID'],
+            'ResultCode' => $receipt['Body']['stkCallback']['ResultCode'],
+            'ResultDesc' => $receipt['Body']['stkCallback']['ResultDesc'],
+        );
 
-        $dbFields = [
-            'sender' => $mpesaData['PhoneNumber'],
-            'amount' => $mpesaData['Amount'],
-            'date' => $mpesaData['TransactionDate'],
-            'receipt_number' => $mpesaData['MpesaReceiptNumber']
-        ];
+        if ($metadata['ResultCode'] == 0) {
+            // successful payment
+            $item = $receipt['Body']['stkCallback']['CallbackMetadata']['Item'];
+            $mpesaData = array_column($item, 'Value', 'Name');
 
-        Log::info($dbFields);
-        // save to database
-        Payment::create($dbFields);
+            $dbFields = [
+                'sender' => $mpesaData['PhoneNumber'],
+                'amount' => $mpesaData['Amount'],
+                'date' => $mpesaData['TransactionDate'],
+                'receipt_number' => $mpesaData['MpesaReceiptNumber']
+            ];
 
+            Log::info($dbFields);
+            // save to database
+            Payment::create($dbFields);
+        }else{
+            // payment did not go through, handle the error message
+            Log::info($metadata['ResultDesc']);
+        }
+
+        // if error message is handled, modify the return statement
         return redirect('/payments')->with('message', 'Payment received');
     }
 

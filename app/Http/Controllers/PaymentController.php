@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Mpesa;
@@ -63,7 +64,17 @@ class PaymentController extends Controller
         $receipt = $request; // comment this
         $item = $receipt['Body']['stkCallback']['CallbackMetadata']['Item'];
         $mpesaData = array_column($item, 'Value', 'Name');
-        Log::info($mpesaData); // save this to database
+
+        $dbFields = [
+            'sender' => $mpesaData['PhoneNumber'],
+            'amount' => $mpesaData['Amount'],
+            'date' => $mpesaData['TransactionDate'],
+            'receipt_number' => $mpesaData['MpesaReceiptNumber']
+        ];
+
+        Log::info($dbFields);
+        // save to database
+        Payment::create($dbFields);
 
         return redirect('/payments')->with('message', 'Payment received');
     }

@@ -51,7 +51,7 @@ class PaymentController extends Controller
         $data = json_decode($stkPushSimulation, true);
 
         if ($data['ResponseCode'] == 0) {
-            return redirect('/payments')->with('message', $data['CustomerMessage']);
+            return redirect('/payments/fetch')->with('message', $data['CustomerMessage']);
         }else {
             return redirect('/payments')->with('message', 'Request not complete.');
         }
@@ -77,5 +77,12 @@ class PaymentController extends Controller
         Payment::create($dbFields);
 
         return redirect('/payments')->with('message', 'Payment received');
+    }
+
+    // fetch payments made
+    public function fetchPayments() {
+        return view('payments.payed', [
+            'payments' => Payment::latest()->get()
+        ]);
     }
 }

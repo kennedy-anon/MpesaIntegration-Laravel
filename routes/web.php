@@ -26,3 +26,6 @@ Route::post('/payments/mpesa', [PaymentController::class, 'stkPush']);
 
 // receiving mpesa calbacks/transaction receipt
 Route::post('/webhooks/mpesa', [PaymentController::class, 'mpesaReceipts']);
+
+// fetching payments made
+Route::get('/payments/fetch', [PaymentController::class, 'fetchPayments']);

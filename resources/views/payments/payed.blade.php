@@ -23,7 +23,7 @@
                 @endforeach
 
                 @else
-                <p>No payments found.</p>
+                <p class=" text-center m-5">No payments found.</p>
                     
                 @endunless
               

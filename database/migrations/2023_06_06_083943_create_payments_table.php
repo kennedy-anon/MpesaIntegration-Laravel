@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('sender');
             $table->decimal('amount', 8, 2);
             $table->dateTime('date');
-            $table->string('receipt_number');
+            $table->string('receipt_number')->unique();
             $table->timestamps();
         });
     }

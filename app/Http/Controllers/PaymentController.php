@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Mpesa;
@@ -83,8 +84,19 @@ class PaymentController extends Controller
             ];
 
             Log::info($dbFields);
-            // save to database
-            Payment::create($dbFields);
+            try{
+                // save to database
+                Payment::create($dbFields);
+            } catch (QueryException $e) {
+                $errorCode = $e->getCode();
+
+                if ($errorCode == '23000'){
+                    Log::error('Duplicate entry for receipt number: ' . $dbFields['receipt_number']);
+                } else {
+                    Log::error('Query Exception: ' . $e->getMessage());
+                }
+            }
+            
         }else{
             // payment did not go through, handle the error message
             Log::info($metadata['ResultDesc']);

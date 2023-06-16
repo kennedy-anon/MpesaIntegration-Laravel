@@ -31,7 +31,7 @@ class PaymentController extends Controller
         $PartyA = $formFields['phone_no'];
         $PartyB = 174379;
         $PhoneNumber = $formFields['phone_no']; 
-        $CallBackURL = 'https://hkdk.events/9ljemIq1p4nX';
+        $CallBackURL = 'https://hkdk.events/TZzoh87e24ks';
         $AccountReference = 'Kennedy\'s Investments';
         $TransactionDesc = 'Testing the System';
         $Remarks = 'Remarks';
